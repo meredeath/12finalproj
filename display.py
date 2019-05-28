@@ -1,5 +1,5 @@
-import subprocess
-import os
+from subprocess import Popen, PIPE
+from os import remove, fork, execlp
 
 #constants
 XRES = 500
