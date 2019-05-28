@@ -22,8 +22,20 @@ def first_pass( commands ):
 
     name = ''
     num_frames = 1
-
-    return (name, num_frames)
+    
+    hasv = False
+    
+    for command in commands:
+        if command['op'] == 'frames':
+            num_frames = int(command['args'][0])
+        elif command['op'] == 'basename':
+            name = command['args'][0]
+        elif command['op'] == 'vary':
+            hasVary = True
+    if hasVary:
+        return (name, num_frames)
+    print('Vary found, but numFrames not')
+    exit()
 
 """======== second_pass( commands ) ==========
 
@@ -45,6 +57,21 @@ def first_pass( commands ):
 def second_pass( commands, num_frames ):
     frames = [ {} for i in range(num_frames) ]
 
+    for command in commands:
+        if command['op'] == 'vary':
+            # print(command)
+            args = command['args']
+            knobName = command['knob']
+            startFrame = int(args[0])
+            endFrame = int(args[1])
+            startVal = args[2]
+            endVal = args[3]
+            frames[startFrame][knobName] = startVal
+            frames[endFrame][knobName] = endVal
+            delta = (endVal - startVal) / (endFrame - startFrame)
+            for frame in range(startFrame + 1, endFrame):
+                frames[frame][knobName] = startVal + delta * (frame - startFrame)
+                
     return frames
 
 
@@ -165,4 +192,13 @@ def run(filename):
             display(screen)
         elif c == 'save':
             save_extension(screen, args[0])
-        # end operation loop
+    if num_frames != 1:
+            save_extension(screen, 'anim/' + name + maxDigits%frame)
+            tmp = new_matrix()
+            ident( tmp )
+            stack = [ [x[:] for x in tmp] ]
+            screen = new_screen()
+            zbuffer = new_zbuffer()
+            tmp = []
+    if num_frames != 1:
+        make_animation(name)
