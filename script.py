@@ -192,13 +192,16 @@ def run(filename):
             display(screen)
         elif c == 'save':
             save_extension(screen, args[0])
-    if num_frames != 1:
-            save_extension(screen, 'anim/' + name + maxDigits%frame)
-            tmp = new_matrix()
-            ident( tmp )
-            stack = [ [x[:] for x in tmp] ]
-            screen = new_screen()
-            zbuffer = new_zbuffer()
-            tmp = []
-    if num_frames != 1:
-        make_animation(name)
+            
+    diff = len(str(num_frames)) - len(str(counter))
+
+    add_string = "0" * diff + str(counter)
+    save_extension(screen, "./anim/"+name+add_string)
+    tmp = new_matrix()
+    ident( tmp )
+    stack = [ [x[:] for x in tmp] ]
+    screen = new_screen()
+    zbuffer = new_zbuffer()
+    ounter+=1
+
+make_animation(name)
