@@ -202,6 +202,5 @@ def run(filename):
     stack = [ [x[:] for x in tmp] ]
     screen = new_screen()
     zbuffer = new_zbuffer()
-    ounter+=1
-
-make_animation(name)
+    counter+=1
+  make_animation(name)
