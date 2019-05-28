@@ -1,5 +1,5 @@
 from subprocess import Popen, PIPE
-from os import remove
+import os
 
 #constants
 XRES = 500
