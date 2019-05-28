@@ -34,7 +34,7 @@ def first_pass( commands ):
             hasVary = True
     if hasVary:
         return (name, num_frames)
-    print('Vary found, but numFrames not')
+    print('Vary found, numFrames not found')
     exit()
 
 """======== second_pass( commands ) ==========
