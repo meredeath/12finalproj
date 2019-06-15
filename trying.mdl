@@ -4,7 +4,8 @@ push
 constants shiny_purple 0.2 0.3 0.7 0.0 0.0 0.0 0.0 0.3 0.7
 constants pure_white 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
 
-move 250 250 0
+move 250 250 0 oof
 rotate x 5 spinny
 sphere pure_white 0 0 0 100
 vary spinny 0 49 0 360
+vary oof 0 49 0 250
