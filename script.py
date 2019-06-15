@@ -93,12 +93,9 @@ def run(filename):
     ambient = [50,
                50,
                50]
-    light = [[0.5,
-              0.75,
-              1],
-             [255,
-              255,
-              255]]
+    light = [[[0.9,0.75,1],[255,255,255]],
+	     [[0.5,0.75,1],[0,255,100]],
+	     [[0.1,0.75,1],[0,0,0]]]
 
     color = [0, 0, 0]
     symbols['.white'] = ['constants',
@@ -129,7 +126,7 @@ def run(filename):
 
     for frame in range(num_frames):
         for command in commands:
-            print command
+            #print command
             c = command['op']
             args = command['args']
             knob_value = 1

@@ -25,7 +25,8 @@ def get_lighting(normal, view, ambient, light, symbols, reflect ):
 
     n = normal[:]
     normalize(n)
-    normalize(light[LOCATION])
+    for a in light:
+    	normalize(a[LOCATION])
     normalize(view)
     r = symbols[reflect][1]
 
@@ -49,33 +50,43 @@ def calculate_ambient(alight, reflect):
     return a
 
 def calculate_diffuse(light, reflect, normal):
-    d = [0, 0, 0]
+    sum = [0,0,0]
+    for i in light:
+        d = [0, 0, 0]
 
-    dot = dot_product( light[LOCATION], normal)
+    	dot = dot_product( i[LOCATION], normal)
 
-    dot = dot if dot > 0 else 0
-    d[RED] = light[COLOR][RED] * reflect['red'][DIFFUSE] * dot
-    d[GREEN] = light[COLOR][GREEN] * reflect['green'][DIFFUSE] * dot
-    d[BLUE] = light[COLOR][BLUE] * reflect['blue'][DIFFUSE] * dot
-    return d
+    	dot = dot if dot > 0 else 0
+    	d[RED] = i[COLOR][RED] * reflect['red'][DIFFUSE] * dot
+    	d[GREEN] = i[COLOR][GREEN] * reflect['green'][DIFFUSE] * dot
+    	d[BLUE] = i[COLOR][BLUE] * reflect['blue'][DIFFUSE] * dot
+    	sum[0] += d[0]
+	sum[1] += d[1]
+	sum[2] += d[2]
+    return sum
 
 def calculate_specular(light, reflect, view, normal):
-    s = [0, 0, 0]
-    n = [0, 0, 0]
+    sum = [0,0,0]
+    for i in light:
+    	s = [0, 0, 0]
+    	n = [0, 0, 0]
 
-    result = 2 * dot_product(light[LOCATION], normal)
-    n[0] = (normal[0] * result) - light[LOCATION][0]
-    n[1] = (normal[1] * result) - light[LOCATION][1]
-    n[2] = (normal[2] * result) - light[LOCATION][2]
+    	result = 2 * dot_product(i[LOCATION], normal)
+    	n[0] = (normal[0] * result) - i[LOCATION][0]
+    	n[1] = (normal[1] * result) - i[LOCATION][1]
+    	n[2] = (normal[2] * result) - i[LOCATION][2]
 
-    result = dot_product(n, view)
-    result = result if result > 0 else 0
-    result = pow( result, SPECULAR_EXP )
+    	result = dot_product(n, view)
+    	result = result if result > 0 else 0
+    	result = pow( result, SPECULAR_EXP )
 
-    s[RED] = light[COLOR][RED] * reflect['red'][SPECULAR] * result
-    s[GREEN] = light[COLOR][GREEN] * reflect['green'][SPECULAR] * result
-    s[BLUE] = light[COLOR][BLUE] * reflect['blue'][SPECULAR] * result
-    return s
+    	s[RED] = i[COLOR][RED] * reflect['red'][SPECULAR] * result
+    	s[GREEN] = i[COLOR][GREEN] * reflect['green'][SPECULAR] * result
+    	s[BLUE] = i[COLOR][BLUE] * reflect['blue'][SPECULAR] * result
+    	sum[0] += s[0]
+	sum[1] += s[1]
+	sum[2] += s[2]
+    return sum
 
 def limit_color(color):
     color[RED] = 255 if color[RED] > 255 else color[RED]
