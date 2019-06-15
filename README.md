@@ -16,21 +16,7 @@ Magic Meredith
 
 ## Implemented New Features
  - [ ] add a light to the symbol table
- - [ ] loop through all the lights when calculating diffuse and specular
- - [ ] use vary to move lights
-
-## Relevant MDL Commands
- - [ ] set
- - [ ]
- 
-## Wish List
- - [ ] implement one simple MDL command like set
-
-## How to Use
-1. In the terminal, after cloning the repository, run:
-```
-$ make
-```
+ - [x] loop through all the lights when calculating diffuse and specular
 
 ## Bugs
- * nothing has been added yet
+ * random spheres appear in the gif? not sure where it's coming from
